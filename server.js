@@ -1,10 +1,27 @@
 
+var weather = require('openweather-apis');
+var Twitter = require('twitter');
+const keys = require('./config');
+
+weather.setAPPID(keys.weather);
+weather.setCity('New York');
 
 const droplets = ['⁚', '⁛', '⁝', '⁞', '⁑', '⁕', '′', '⋅', '⋰', '⌁', '⋱', '☂', '☁','✈'];
+const cloud = ['☁'];
 
-'。', '〮'
+var client = new Twitter({
+  consumer_key: '',
+  consumer_secret: '',
+  access_token_key: '',
+  access_token_secret: ''
+});
 
-'〟'
+weather.getAllWeather(function (err, JSONObj) {
+  console.log(JSONObj);
+
+  if (JSONObj)
+});
+
 
 
 // from: https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
@@ -37,7 +54,14 @@ function storm(arr) {
   return str;
 }
 
-console.log(storm(droplets));
-console.log(storm(droplets).length);
+let stormToPost = storm(droplets)
+
+console.log(stormToPost);
+
+// client.post('statuses/update', { status: stormToPost }, function (error, tweet, response) {
+//   if (error) throw error;
+//   console.log(tweet);  // Tweet body.
+//   console.log(response);  // Raw response object.
+// });
 
 

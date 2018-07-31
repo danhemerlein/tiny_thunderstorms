@@ -1,0 +1,26 @@
+{
+  "name": "tiny_thunderstorms",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danhemerlein/tiny_thunderstorms.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danhemerlein/tiny_thunderstorms/issues"
+  },
+  "homepage": "https://github.com/danhemerlein/tiny_thunderstorms#readme",
+  "dependencies": {
+    "es6-promise": "^4.2.4",
+    "isomorphic-fetch": "^2.2.1",
+    "openweather-apis": "^3.3.5",
+    "twitter": "^1.7.1"
+  }
+}
