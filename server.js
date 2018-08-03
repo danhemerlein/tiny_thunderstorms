@@ -6,23 +6,17 @@ const keys = require('./config');
 weather.setAPPID(keys.weather);
 weather.setCity('New York');
 
-const droplets = ['⁚', '⁛', '⁝', '⁞', '⁑', '⁕', '′', '⋅', '⋰', '⌁', '⋱', '☂', '☁','✈'];
-const cloud = ['☁'];
+const droplets = ['⁚', '⁝', '⁞', '′', '⋅', '⋰', '⌁', '⋱', '☂', '☁'];
+const snow = ['⁑', '⁕', '✈', '☁', '❄', '❅', '❆', '❇', '❈', '❉', '❉', '❊', '❋','☃']
+const cloud = ['☁', '✈', '☁', '☁', '☁'];
+const sun = ['☼', '☁', '☼', '☼', '☼'];
 
 var client = new Twitter({
-  consumer_key: '',
-  consumer_secret: '',
-  access_token_key: '',
-  access_token_secret: ''
+  consumer_key: keys.consumer_key,
+  consumer_secret: keys.consumer_secret,
+  access_token_key: keys.access_token,
+  access_token_secret: keys.access_secret
 });
-
-weather.getAllWeather(function (err, JSONObj) {
-  console.log(JSONObj);
-
-  if (JSONObj)
-});
-
-
 
 // from: https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
 
@@ -49,19 +43,37 @@ function createStorm(arr) {
 function storm(arr) {
   let str = '';
   for (let i = 0; i < 9; i++) {
-    str+=`${createStorm(arr)}\n`
+    str += `${createStorm(arr)}\n`
   }
   return str;
 }
 
-let stormToPost = storm(droplets)
+weather.getAllWeather(function (err, data) {
+  // console.log(data);
+  let str = '';
+  let id = String(data.weather[0].id);
+  
+  if (id.startsWith('2') || id.startsWith('3') || id.startsWith('5')) {
+    str += storm(droplets)
+  }
 
-console.log(stormToPost);
+  if (id.startsWith('6')) {
+    str += storm(snow)
+  }  
 
-// client.post('statuses/update', { status: stormToPost }, function (error, tweet, response) {
-//   if (error) throw error;
-//   console.log(tweet);  // Tweet body.
-//   console.log(response);  // Raw response object.
-// });
+  if (id === '800') {
+    str += storm(sun)
+  }
 
+  if ((id === '801') || (id === '802') || (id === '803') || (id === '804')) {    
+    str += storm(cloud)
+  }
 
+  console.log(str);
+
+  client.post('statuses/update', { status: str }, function (error, tweet, response) {
+    if (error) throw error;
+    console.log(tweet);  // Tweet body.
+    console.log(response);  // Raw response object.
+  });
+});
