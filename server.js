@@ -49,11 +49,11 @@ function storm(arr) {
 }
 
 weather.getAllWeather(function (err, data) {
-  // console.log(data);
+  console.log(data);
   let str = '';
   let id = String(data.weather[0].id);
   
-  if (id.startsWith('2') || id.startsWith('3') || id.startsWith('5')) {
+  if (id.startsWith('2') || id.startsWith('3') || id.startsWith('5') || id.startsWith('7')) {
     str += storm(droplets)
   }
 
